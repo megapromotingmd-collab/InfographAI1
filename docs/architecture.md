@@ -1,0 +1,31 @@
+# Arhitectura InfographAI (rezumat)
+
+- **Stack**: React + TypeScript, Tailwind config injectat în `index.html` (fonts: Crimson Text, Inter, Fira Code; culori brand `#0A0A0A` bg, accent `#C15F3C`, `#D4785A`).
+- **Routing**: manual prin `view` în `App.tsx` (fără React Router). View-uri principale: `landing`, `workspace`, `gallery` (Styles), `examples`, `how-it-works`, `project-hub`, `brand-kit`.
+- **Module UI** (directoare):
+  - `components/Landing*` (LandingPage + secțiuni derivate).
+  - `components/HowItWorksPage.tsx` (pagină scroll cu 7 secțiuni).
+  - `components/StylesGalleryPage.tsx` (galerie stiluri).
+  - `components/ExamplesPage.tsx` (exemple/seturi/demo).
+  - `components/Branding/*` (wizard + workspace branding legacy).
+  - `components/PitchDeck/*` (SketchBuilder + pitch deck wizard).
+  - `components/ChildrenBookWizard.tsx`.
+  - `components/ImageViewer/*` (viewer/editor universal de imagini).
+  - `modules/brand-kit/*` (Brand Kit nou, izolat).
+  - `modules/project-hub/*` (Project Hub, cheie Gemini pe user).
+- **Tipuri/constante**:
+  - `types.ts`: Project, GenerationConfig, BrandDetails, PitchDetails, enums (styles, formats, complexity, text density, search depth).
+  - `constants.ts`: DEFAULT_CONFIG, liste (LANGUAGES, STYLES, FORMATS etc.), STYLE_RULES pentru enforcement.
+- **Servicii**:
+  - `services/geminiService.ts`: generează imagini (infographic) + sheet 1.5; rezolvă cheia activă (localStorage > AI Studio > env).
+  - `services/brandingService.ts`: generare asset branding (dacă folosit).
+  - `services/brandKitService.ts`: overview draft + asset mock (Brand Kit).
+  - `services/promptParser.ts`: parsează input text în queue.
+  - `services/telegramService.ts`: trimite notificări/documente.
+  - `services/userKeyStore.ts`: cheie Gemini per utilizator (localStorage).
+- **Concepte cheie**:
+  - **Sheet 1.5** (anchor) pentru consistență (character/brand) → `generateCharacterSheet`.
+  - **Queue** de generare 1…15 (seturi), cu Zero Tolerance, delay 60s, auto-retry.
+  - **Editor universal**: același viewer pentru toate imaginile (storyboard, books, pitch, branding).
+  - **Project Hub**: listă proiecte, creare tipizată, panou cheie Gemini.
+  - **Brand Kit**: brief, overview, asset-uri (logo/paletă/moodboard/aplicații) cu editare în viewer.

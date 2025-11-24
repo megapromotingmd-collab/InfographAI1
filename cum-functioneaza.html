@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InfographAI — Cum Funcționează</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crail: {
+              50: '#FDF5F3',
+              100: '#FAEAE5',
+              200: '#F4D0C4',
+              300: '#E9A891',
+              400: '#D7836A',
+              500: '#C15F3C',
+              600: '#A04F2F',
+              700: '#7F3F25',
+              800: '#5F2F1C',
+              900: '#3F2013',
+            },
+            pampas: '#F4F3EE',
+            slate: {
+              dark: '#191919',
+              medium: '#262625',
+            },
+            cloud: {
+              dark: '#666663',
+              medium: '#91918D',
+              light: 'rgba(145, 145, 141, 0.15)',
+            },
+            ivory: {
+              dark: '#E5E4DF',
+              medium: '#F0F0EB',
+              light: '#FAFAF7',
+            },
+            brand: {
+              light: '#D4785A',
+              DEFAULT: '#C15F3C',
+              dark: '#A34D30',
+              glow: 'rgba(193, 95, 60, 0.5)'
+            },
+            neutral: {
+              bg: '#0A0A0A',
+              surface: '#1A1A19',
+              border: '#2A2A28',
+            },
+            text: {
+              primary: '#FAFAF7',
+              secondary: '#91918D',
+              muted: '#666663',
+            },
+            focus: '#61A4F2',
+            error: '#BF5D93',
+            success: '#10B981',
+            warning: '#F59E0B',
+            kraft: '#D4A27F',
+            manilla: '#EBDBBC',
+          },
+          fontFamily: {
+            serif: ['"Crimson Text"', 'Georgia', 'serif'],
+            sans: ['"Inter"', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          boxShadow: {
+            subtle: '0 1px 3px rgba(0, 0, 0, 0.05)',
+            card: '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
+            elevated: '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
+            crail: '0 8px 24px rgba(193, 95, 60, 0.25)',
+            neon: '0 0 20px rgba(193, 95, 60, 0.4)',
+            glass: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          },
+          borderRadius: {
+            xl: '16px',
+            '2xl': '24px',
+            '3xl': '32px',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out forwards',
+            'slide-up': 'slideUp 0.8s ease-out forwards',
+            'beam': 'beam 3s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 3s infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            beam: { '0%': { left: '-100%' }, '50%, 100%': { left: '100%' } },
+            pulseGlow: { '0%, 100%': { boxShadow: '0 0 10px rgba(193, 95, 60, 0.2)' }, '50%': { boxShadow: '0 0 25px rgba(193, 95, 60, 0.6)' } },
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } },
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="./cum-functioneaza.css" />
+</head>
+<body class="bg-neutral-bg text-text-primary font-sans selection:bg-brand selection:text-white overflow-x-hidden">
+  <div class="noise-layer"></div>
+  <div class="background-glow"></div>
+
+  <header class="main-nav fixed top-0 left-0 right-0 z-50 border-b border-neutral-border/60 bg-neutral-bg/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a class="flex items-center gap-3 group" href="index.html">
+        <div class="w-10 h-10 bg-brand rounded-xl flex items-center justify-center font-serif font-bold text-white shadow-neon transition-transform group-hover:scale-110">I</div>
+        <span class="font-serif font-bold text-xl tracking-tight text-white group-hover:text-brand-light transition-colors">InfographAI</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-text-secondary">
+        <a href="index.html" class="nav-link">Acasă</a>
+        <span class="nav-link active">Cum Funcționează</span>
+        <a href="index.html#styles" class="nav-link">Stiluri</a>
+        <a href="index.html#pricing" class="nav-link">Prețuri</a>
+      </nav>
+      <a href="index.html#app" class="btn primary">Accesează Platforma →</a>
+    </div>
+  </header>
+
+  <div class="side-dots hidden lg:flex flex-col gap-3 fixed right-6 top-1/2 -translate-y-1/2 z-40">
+    <button class="side-dot active" data-scroll="#hero" aria-label="Intro"></button>
+    <button class="side-dot" data-scroll="#scenariu" aria-label="Scenariu"></button>
+    <button class="side-dot" data-scroll="#setari" aria-label="Setări"></button>
+    <button class="side-dot" data-scroll="#upload" aria-label="Upload"></button>
+    <button class="side-dot" data-scroll="#generare" aria-label="Generare"></button>
+    <button class="side-dot" data-scroll="#rezultat" aria-label="Rezultat"></button>
+    <button class="side-dot" data-scroll="#cta-final" aria-label="CTA"></button>
+  </div>
+
+  <main class="overflow-hidden">
+    <!-- HERO -->
+    <section id="hero" class="section min-h-screen flex items-center relative overflow-hidden" data-animate>
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="hero-gradient"></div>
+        <div class="floating-dots"></div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div class="space-y-6">
+          <span class="pill">GHID COMPLET</span>
+          <h1 class="text-5xl md:text-6xl font-serif font-bold leading-tight text-transparent bg-clip-text bg-gradient-to-b from-white to-text-secondary">
+            Cum Creezi Povești Vizuale Perfecte
+          </h1>
+          <p class="text-xl text-text-secondary max-w-2xl">
+            De la idee la 15 scene coerente în câteva minute. Urmărește procesul pas cu pas.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <button class="btn beam" data-scroll="#scenariu">Începe Să Înveți ↓</button>
+            <div class="flex gap-2 text-xs text-text-secondary">
+              <span class="pill-soft">Flow complet</span>
+              <span class="pill-soft">Animații live</span>
+            </div>
+          </div>
+        </div>
+        <div class="glass hero-flow p-8 rounded-3xl border border-neutral-border/70 shadow-glow">
+          <div class="flow-line mb-10">
+            <span class="flow-progress"></span>
+          </div>
+          <div class="grid grid-cols-5 gap-4">
+            <div class="flow-node stagger" style="--delay:0s">
+              <div class="icon-shell" data-icon="document"></div>
+              <span class="node-label">Scenariu</span>
+            </div>
+            <div class="flow-node stagger" style="--delay:0.2s">
+              <div class="icon-shell" data-icon="gear"></div>
+              <span class="node-label">Setări</span>
+            </div>
+            <div class="flow-node stagger" style="--delay:0.4s">
+              <div class="icon-shell" data-icon="palette"></div>
+              <span class="node-label">Stil</span>
+            </div>
+            <div class="flow-node stagger" style="--delay:0.6s">
+              <div class="icon-shell" data-icon="ai"></div>
+              <span class="node-label">Generare</span>
+            </div>
+            <div class="flow-node stagger" style="--delay:0.8s">
+              <div class="icon-shell" data-icon="folder"></div>
+              <span class="node-label">Rezultat</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASUL 1 -->
+    <section id="scenariu" class="section border-t border-neutral-border" data-animate>
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-start">
+        <div class="space-y-5">
+          <span class="pill-outline">PASUL 1</span>
+          <h2 class="section-title">Scrie Scenariul Tău</h2>
+          <p class="text-lg text-text-secondary leading-relaxed">
+            Structurează povestea în SET-uri și SCENE-uri. Platforma înțelege formatul și extrage automat contextul.
+          </p>
+          <div class="glass editor-card rounded-2xl border border-neutral-border overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-3 border-b border-neutral-border/80 text-text-secondary text-xs uppercase tracking-[0.2em]">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="ml-2 font-mono">script_editor.txt</span>
+            </div>
+            <div id="script-typing" class="p-6 text-sm font-mono text-text-primary min-h-[260px] leading-relaxed"></div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <div class="parsing-panel glass rounded-2xl border border-neutral-border/70 p-6">
+            <div class="flex items-center gap-3 text-xs font-bold tracking-[0.2em] text-text-muted uppercase mb-4">
+              <div class="w-8 h-8 rounded-full bg-neutral-surface flex items-center justify-center border border-neutral-border">
+                <span class="icon small" data-icon="spinner"></span>
+              </div>
+              <span>Parsing live</span>
+            </div>
+            <div class="set-card parsed-block" data-parsed-block="set">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="pill-soft text-xs">SET 1</span>
+                  <span class="badge-accent">Context global</span>
+                </div>
+                <div class="icon tiny text-success" data-icon="check"></div>
+              </div>
+              <div class="font-serif text-xl text-white">Aventura în Junglă</div>
+              <div class="text-sm text-text-secondary">Stil explorator anii 1920 · lumină caldă · atmosferă misterioasă</div>
+            </div>
+            <div class="scene-stack">
+              <div class="scene-card parsed-block" data-scene-card="1">
+                <div class="scene-dot"></div>
+                <div>
+                  <div class="text-xs text-text-muted uppercase tracking-[0.2em]">Scena 1</div>
+                  <div class="text-sm text-white font-semibold">Camera cu hărți</div>
+                  <div class="text-xs text-text-secondary">Birou plin de hărți vechi și busole</div>
+                </div>
+                <div class="icon tiny" data-icon="check"></div>
+              </div>
+              <div class="scene-card parsed-block" data-scene-card="2">
+                <div class="scene-dot"></div>
+                <div>
+                  <div class="text-xs text-text-muted uppercase tracking-[0.2em]">Scena 2</div>
+                  <div class="text-sm text-white font-semibold">Pregătirea jeep-ului</div>
+                  <div class="text-xs text-text-secondary">Echipa încarcă proviziile</div>
+                </div>
+                <div class="icon tiny" data-icon="check"></div>
+              </div>
+              <div class="scene-card parsed-block" data-scene-card="3">
+                <div class="scene-dot"></div>
+                <div>
+                  <div class="text-xs text-text-muted uppercase tracking-[0.2em]">Scena 3</div>
+                  <div class="text-sm text-white font-semibold">Intrarea în junglă</div>
+                  <div class="text-xs text-text-secondary">Vegetație densă, lumină filtrată</div>
+                </div>
+                <div class="icon tiny" data-icon="check"></div>
+              </div>
+            </div>
+            <p class="text-sm text-text-secondary mt-5">
+              Formatul SET/SCENE permite platformei să înțeleagă structura poveștii și să aplice contextul global tuturor scenelor din același set.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASUL 2 -->
+    <section id="setari" class="section bg-[#0D0D0D] border-t border-neutral-border" data-animate>
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="settings-panel rounded-3xl overflow-hidden shadow-glow">
+            <div class="settings-header">Setări Generare</div>
+            <div class="settings-body">
+              <div class="setting-control" data-setting-step="1">
+                <div class="control-label">Limbă</div>
+                <div class="control-content">
+                  <span class="font-semibold">Română</span>
+                  <span class="chevron">▾</span>
+                </div>
+                <div class="control-check" data-icon="check"></div>
+              </div>
+              <div class="setting-control" data-setting-step="2">
+                <div class="control-label">Stil Vizual</div>
+                <div class="control-content">
+                  <span class="font-semibold">Watercolor Painting</span>
+                  <div class="style-preview"></div>
+                </div>
+                <div class="control-dropdown">Photorealistic · Anime · 3D · Sketch · Watercolor</div>
+                <div class="control-check" data-icon="check"></div>
+              </div>
+              <div class="setting-control" data-setting-step="3">
+                <div class="control-label">Format</div>
+                <div class="control-content">
+                  <span class="font-semibold">4:5</span>
+                  <div class="ratio-box"></div>
+                </div>
+                <div class="control-check" data-icon="check"></div>
+              </div>
+              <div class="setting-control" data-setting-step="4">
+                <div class="control-label">Complexitate</div>
+                <div class="control-content slider">
+                  <div class="slider-track"><span class="slider-thumb"></span></div>
+                  <span class="text-xs text-text-muted">General Public</span>
+                </div>
+                <div class="control-check" data-icon="check"></div>
+              </div>
+              <div class="setting-control" data-setting-step="5">
+                <div class="control-label">Densitate Text</div>
+                <div class="control-content">
+                  <span class="font-semibold">Echilibrat</span>
+                  <span class="chevron">▾</span>
+                </div>
+                <div class="control-check" data-icon="check"></div>
+              </div>
+            </div>
+            <div class="settings-footer">
+              <button class="btn primary w-full">Salvează Configurația</button>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3 mt-5" id="setting-badges">
+            <span class="pill-soft">Română</span>
+            <span class="pill-soft">Watercolor</span>
+            <span class="pill-soft">4:5</span>
+            <span class="pill-soft">Mediu</span>
+            <span class="pill-soft">Echilibrat</span>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 space-y-4">
+          <span class="pill-outline">PASUL 2</span>
+          <h2 class="section-title">Configurează Experiența</h2>
+          <p class="text-lg text-text-secondary leading-relaxed">
+            Alege limba, stilul, formatul și nivelul de detaliu. Fiecare setare influențează rezultatul final.
+          </p>
+          <div class="grid grid-cols-2 gap-4 text-sm text-text-secondary">
+            <div class="flex items-center gap-2">
+              <span class="icon tiny" data-icon="gear"></span> Control total
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="icon tiny" data-icon="palette"></span> Previzualizare stil
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="icon tiny" data-icon="clock"></span> Setări salvate rapid
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="icon tiny" data-icon="shield"></span> Consistență protejată
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASUL 3 -->
+    <section id="upload" class="section border-t border-neutral-border" data-animate>
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-center">
+        <div class="space-y-5 order-2 lg:order-1">
+          <span class="pill-outline">PASUL 3 — OPȚIONAL</span>
+          <h2 class="section-title">Încarcă Referința de Personaj</h2>
+          <p class="text-lg text-text-secondary leading-relaxed">
+            Drag & drop o imagine cu personajul tău. Platforma va menține consistența în toate scenele.
+          </p>
+          <div class="info-card">
+            <div class="flex items-center gap-2 text-brand font-semibold">
+              <span class="icon tiny" data-icon="info"></span> Sfat
+            </div>
+            <p class="text-sm text-text-secondary mt-2">Imaginea de referință este analizată și folosită pentru a genera un Character Sheet (imagine 1.5) care asigură consistența.</p>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 grid lg:grid-cols-2 gap-6 items-center w-full">
+          <div class="dropzone" id="dropzone">
+            <div class="drop-border"></div>
+            <div class="floating-ref" id="floating-ref">
+              <div class="ref-image" data-icon="image"></div>
+            </div>
+            <div class="drop-content">
+              <div class="icon big" data-icon="upload"></div>
+              <p class="font-semibold text-white">Trage imaginea aici</p>
+              <p class="text-xs text-text-muted">sau click pentru a selecta</p>
+            </div>
+            <div class="drop-success" id="drop-success">
+              <div class="icon tiny" data-icon="check"></div>
+              <span>Referință încărcată cu succes</span>
+            </div>
+          </div>
+          <div class="glass rounded-2xl border border-neutral-border p-5 space-y-3" id="upload-preview">
+            <div class="flex items-center gap-2 text-sm font-bold text-white">
+              <span class="icon tiny" data-icon="ai"></span> Analiză AI
+            </div>
+            <div class="preview-frame">
+              <div class="icon" data-icon="image"></div>
+            </div>
+            <div class="space-y-2 text-sm text-text-secondary">
+              <div class="detect-line" data-detect-line>Detectat: Personaj uman</div>
+              <div class="detect-line" data-detect-line>Stil: Ilustrație digitală</div>
+              <div class="detect-line" data-detect-line>Culori dominante: amber · verde · sepia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASUL 4 -->
+    <section id="generare" class="section bg-[#0D0D0D] border-t border-neutral-border" data-animate>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+          <span class="pill-outline">PASUL 4</span>
+          <h2 class="section-title">Generarea Automată</h2>
+          <p class="text-lg text-text-secondary">Un click. 15 scene. Zero efort manual. Sistemul Zero Tolerance garantează consistența.</p>
+        </div>
+
+        <div class="flex justify-center mb-10">
+          <button class="btn primary large" id="start-batch">
+            <span class="icon tiny" data-icon="play"></span>
+            <span>START GENERATION BATCH</span>
+          </button>
+        </div>
+
+        <div class="timeline-grid" id="timeline-grid">
+          <div class="timeline-slot" data-step="1">
+            <div class="slot-label">1</div>
+            <div class="slot-body">
+              <div class="spinner"></div>
+              <span>Generare ancoră</span>
+            </div>
+          </div>
+          <div class="timeline-slot anchor" data-anchor="true">
+            <div class="slot-label">1.5</div>
+            <div class="slot-body">
+              <span class="icon tiny" data-icon="shield"></span>
+              <span>Character Sheet</span>
+            </div>
+          </div>
+          <div class="timeline-slot" data-step="2"><div class="slot-label">2</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="3"><div class="slot-label">3</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="4"><div class="slot-label">4</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="5"><div class="slot-label">5</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="6"><div class="slot-label">6</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="7"><div class="slot-label">7</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="8"><div class="slot-label">8</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="9"><div class="slot-label">9</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="10"><div class="slot-label">10</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="11"><div class="slot-label">11</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="12"><div class="slot-label">12</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="13"><div class="slot-label">13</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="14"><div class="slot-label">14</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+          <div class="timeline-slot" data-step="15"><div class="slot-label">15</div><div class="slot-body"><div class="spinner"></div><span>Generare</span></div></div>
+        </div>
+
+        <div class="status-panel glass rounded-3xl border border-neutral-border mt-10">
+          <div class="status-row">
+            <div class="text-sm text-text-secondary">Timp estimat rămas</div>
+            <div class="text-sm font-mono" id="status-timer">14:30</div>
+          </div>
+          <div class="status-row">
+            <div class="text-sm text-text-secondary">Progres</div>
+            <div class="progress-bar"><span id="progress-fill"></span></div>
+          </div>
+          <div class="status-row">
+            <div class="text-sm text-text-secondary">Status curent</div>
+            <div class="text-sm font-mono" id="status-text">Pregătire batch...</div>
+          </div>
+          <div class="status-row">
+            <div class="text-sm text-text-secondary">Completare</div>
+            <div class="text-sm font-bold" id="status-overall">0% completat</div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-4 text-sm text-white" id="safety-badges">
+          <span class="status-badge" data-badge="1">
+            <span class="icon tiny" data-icon="shield"></span>
+            Zero Tolerance Protocol
+          </span>
+          <span class="status-badge" data-badge="2">
+            <span class="icon tiny" data-icon="clock"></span>
+            Drift-Proof Delay 60s
+          </span>
+          <span class="status-badge" data-badge="3">
+            <span class="icon tiny" data-icon="refresh"></span>
+            Auto-Retry 3×
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASUL 5 -->
+    <section id="rezultat" class="section border-t border-neutral-border" data-animate>
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-start">
+        <div>
+          <span class="pill-outline">REZULTATUL</span>
+          <h2 class="section-title">Setul Tău Complet — Organizat Perfect</h2>
+          <p class="text-lg text-text-secondary mb-6">15 scene coerente, gata de folosit. Descarcă individual sau tot setul arhivat.</p>
+          <div class="gallery-grid" id="result-gallery">
+            <div class="result-card" data-scene="1"><div class="scene-index">1</div></div>
+            <div class="result-card" data-scene="2"><div class="scene-index">2</div></div>
+            <div class="result-card" data-scene="3"><div class="scene-index">3</div></div>
+            <div class="result-card" data-scene="4"><div class="scene-index">4</div></div>
+            <div class="result-card" data-scene="5"><div class="scene-index">5</div></div>
+            <div class="result-card" data-scene="6"><div class="scene-index">6</div></div>
+            <div class="result-card" data-scene="7"><div class="scene-index">7</div></div>
+            <div class="result-card" data-scene="8"><div class="scene-index">8</div></div>
+            <div class="result-card" data-scene="9"><div class="scene-index">9</div></div>
+            <div class="result-card" data-scene="10"><div class="scene-index">10</div></div>
+            <div class="result-card" data-scene="11"><div class="scene-index">11</div></div>
+            <div class="result-card" data-scene="12"><div class="scene-index">12</div></div>
+            <div class="result-card" data-scene="13"><div class="scene-index">13</div></div>
+            <div class="result-card" data-scene="14"><div class="scene-index">14</div></div>
+            <div class="result-card" data-scene="15"><div class="scene-index">15</div></div>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button class="btn primary">Descarcă Tot (ZIP)</button>
+            <button class="btn ghost">Descarcă Scene Individual</button>
+            <button class="btn ghost">Exportă pentru Social Media</button>
+          </div>
+          <div class="mt-4 flex gap-2 flex-wrap text-xs text-text-secondary">
+            <span class="pill-soft">PNG HD</span>
+            <span class="pill-soft">JPG Comprimat</span>
+            <span class="pill-soft">WebP</span>
+            <span class="pill-soft">ZIP Archive</span>
+          </div>
+        </div>
+        <div class="glass rounded-3xl border border-neutral-border p-6" id="file-tree">
+          <div class="flex items-center gap-2 text-sm font-bold text-white mb-3">
+            <span class="icon tiny" data-icon="folder"></span> InfographAI Exports
+          </div>
+          <ul class="tree">
+            <li data-node>
+              <div class="tree-row">
+                <span class="icon tiny" data-icon="folder"></span>
+                <span>Aventura în Junglă (SET 1)</span>
+              </div>
+              <ul>
+                <li data-node class="child">
+                  <div class="tree-row">
+                    <span class="icon tiny" data-icon="grid"></span>
+                    <span>Scenes</span>
+                  </div>
+                  <ul>
+                    <li data-node class="leaf"><span class="icon tiny" data-icon="image"></span> scene_01_camera_harti.png</li>
+                    <li data-node class="leaf"><span class="icon tiny" data-icon="image"></span> scene_02_pregatire_jeep.png</li>
+                    <li data-node class="leaf"><span class="icon tiny" data-icon="image"></span> scene_03_intrare_jungla.png</li>
+                    <li data-node class="leaf faint">... 12 fișiere</li>
+                  </ul>
+                </li>
+                <li data-node class="child">
+                  <div class="tree-row">
+                    <span class="icon tiny" data-icon="folder"></span>
+                    <span>References</span>
+                  </div>
+                  <ul>
+                    <li data-node class="leaf"><span class="icon tiny" data-icon="image"></span> character_sheet_1.5.png</li>
+                  </ul>
+                </li>
+                <li data-node class="leaf"><span class="icon tiny" data-icon="document"></span> script_original.txt</li>
+                <li data-node class="leaf"><span class="icon tiny" data-icon="document"></span> metadata.json</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section id="cta-final" class="section bg-gradient-to-b from-[#0D0D0D] via-[#0A0A0A] to-[#050505] border-t border-neutral-border relative overflow-hidden" data-animate>
+      <div class="cta-glow"></div>
+      <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <span class="pill">GATA DE START?</span>
+        <h2 class="section-title mt-4">Acum E Rândul Tău</h2>
+        <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-10">Ai înțeles procesul. E timpul să creezi prima ta poveste vizuală.</p>
+        <div class="cta-icons" id="cta-icons">
+          <div class="cta-icon" data-icon="document"></div>
+          <div class="cta-icon" data-icon="gear"></div>
+          <div class="cta-icon" data-icon="ai"></div>
+          <div class="cta-icon" data-icon="grid"></div>
+          <div class="cta-icon" data-icon="download"></div>
+        </div>
+        <div class="mt-10">
+          <a href="index.html#app" class="btn primary large beam">Începe Să Creezi — Gratuit →</a>
+        </div>
+        <p class="text-sm text-text-muted mt-4">Nu e nevoie de card. Primele 5 seturi sunt gratuite.</p>
+        <a href="mailto:hello@infographai.com" class="text-sm text-brand mt-2 inline-block hover:text-brand-light">Ai întrebări? Contactează-ne</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-12 bg-[#050505] border-t border-neutral-border">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-secondary">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center font-serif font-bold text-white">I</div>
+        <span>© 2025 InfographAI</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-white">Acasă</a>
+        <a href="index.html#pricing" class="hover:text-white">Termeni</a>
+        <a href="index.html#pricing" class="hover:text-white">Confidențialitate</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="icon-templates" class="hidden">
+    <template id="icon-document">
+      <svg viewBox="0 0 64 64" class="icon-base icon-doc" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="12" y="8" width="32" height="48" rx="4" class="icon-stroke"></rect>
+        <path d="M44 20L32 8" class="icon-stroke"></path>
+        <line x1="20" y1="26" x2="40" y2="26" class="doc-line line-1"></line>
+        <line x1="20" y1="34" x2="38" y2="34" class="doc-line line-2"></line>
+        <line x1="20" y1="42" x2="34" y2="42" class="doc-line line-3"></line>
+      </svg>
+    </template>
+    <template id="icon-gear">
+      <svg viewBox="0 0 64 64" class="icon-base icon-gear" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="32" cy="32" r="10" class="icon-stroke"></circle>
+        <path class="icon-stroke" d="M32 14v6m0 24v6M18 32h-6m34 0h6M22 22l-4-4m28 28l4 4m0-32l-4 4M22 42l-4 4" />
+      </svg>
+    </template>
+    <template id="icon-palette">
+      <svg viewBox="0 0 64 64" class="icon-base icon-palette" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M34 10c-12 0-22 8.5-22 19s8 17 15 17c2 0 3-1.5 3-3s-1-3-3-3h10c6 0 11-5 11-11 0-10-10-19-14-19z" />
+        <circle cx="22" cy="26" r="2.5" fill="currentColor"></circle>
+        <circle cx="32" cy="22" r="2.5" fill="currentColor"></circle>
+        <circle cx="42" cy="27" r="2.5" fill="currentColor"></circle>
+        <circle cx="28" cy="34" r="2.5" fill="currentColor"></circle>
+      </svg>
+    </template>
+    <template id="icon-ai">
+      <svg viewBox="0 0 64 64" class="icon-base icon-ai" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M20 32c0-6.627 5.373-12 12-12 6.628 0 12 5.373 12 12s-5.372 12-12 12c-6.627 0-12-5.373-12-12z" />
+        <path class="icon-stroke" d="M32 14v4m0 28v4m18-18h-4M18 32h-4m27.9-9.9l-2.8 2.8M20.9 41.1l-2.8 2.8m0-23l2.8 2.8m19.1 19.1 2.8 2.8" />
+        <circle cx="24" cy="32" r="1.5" class="sparkle"></circle>
+        <circle cx="32" cy="26" r="1.5" class="sparkle"></circle>
+        <circle cx="40" cy="34" r="1.5" class="sparkle"></circle>
+      </svg>
+    </template>
+    <template id="icon-folder">
+      <svg viewBox="0 0 64 64" class="icon-base icon-folder" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M8 18h16l4 6h28v22a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4z" />
+        <path class="icon-stroke" d="M56 24H32" />
+      </svg>
+    </template>
+    <template id="icon-upload">
+      <svg viewBox="0 0 64 64" class="icon-base icon-upload" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M20 36v10h24V36" />
+        <path class="icon-stroke arrow" d="M32 42V16m0 0l-8 8m8-8 8 8" />
+      </svg>
+    </template>
+    <template id="icon-download">
+      <svg viewBox="0 0 64 64" class="icon-base icon-download" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M20 38v10h24V38" />
+        <path class="icon-stroke arrow-down" d="M32 14v26m0 0l-8-8m8 8 8-8" />
+      </svg>
+    </template>
+    <template id="icon-check">
+      <svg viewBox="0 0 32 32" class="icon-base icon-check" fill="none" stroke="currentColor" stroke-width="3">
+        <path class="check-path" stroke-linecap="round" stroke-linejoin="round" d="M6 17l7 7 13-17" />
+      </svg>
+    </template>
+    <template id="icon-spinner">
+      <svg viewBox="0 0 32 32" class="icon-base icon-spinner" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="16" cy="16" r="12" stroke-opacity="0.2"></circle>
+        <path d="M28 16a12 12 0 0 1-12 12" class="spinner-path" />
+      </svg>
+    </template>
+    <template id="icon-shield">
+      <svg viewBox="0 0 64 64" class="icon-base icon-shield" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M32 8l18 8v12c0 10-7.5 18.5-18 22-10.5-3.5-18-12-18-22V16l18-8z" />
+        <path class="icon-stroke" d="M24 32l6 6 10-12" />
+      </svg>
+    </template>
+    <template id="icon-clock">
+      <svg viewBox="0 0 64 64" class="icon-base icon-clock" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="32" cy="32" r="20" class="icon-stroke" />
+        <path class="clock-hand" d="M32 20v12l8 6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </template>
+    <template id="icon-refresh">
+      <svg viewBox="0 0 64 64" class="icon-base icon-refresh" fill="none" stroke="currentColor" stroke-width="2">
+        <path class="icon-stroke" d="M20 26V14l-8 8" />
+        <path class="icon-stroke" d="M44 38v12l8-8" />
+        <path class="icon-stroke" d="M18 32a14 14 0 0 1 22-12" />
+        <path class="icon-stroke" d="M46 32a14 14 0 0 1-22 12" />
+      </svg>
+    </template>
+    <template id="icon-image">
+      <svg viewBox="0 0 64 64" class="icon-base icon-image" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="10" y="14" width="44" height="36" rx="4" class="icon-stroke" />
+        <circle cx="24" cy="26" r="4" class="icon-stroke" />
+        <path class="icon-stroke" d="M16 44l12-12 10 8 10-14 8 10" />
+      </svg>
+    </template>
+    <template id="icon-grid">
+      <svg viewBox="0 0 64 64" class="icon-base icon-grid" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="12" y="12" width="12" height="12" class="grid-cell"></rect>
+        <rect x="26" y="12" width="12" height="12" class="grid-cell"></rect>
+        <rect x="40" y="12" width="12" height="12" class="grid-cell"></rect>
+        <rect x="12" y="26" width="12" height="12" class="grid-cell"></rect>
+        <rect x="26" y="26" width="12" height="12" class="grid-cell"></rect>
+        <rect x="40" y="26" width="12" height="12" class="grid-cell"></rect>
+        <rect x="12" y="40" width="12" height="12" class="grid-cell"></rect>
+        <rect x="26" y="40" width="12" height="12" class="grid-cell"></rect>
+        <rect x="40" y="40" width="12" height="12" class="grid-cell"></rect>
+      </svg>
+    </template>
+    <template id="icon-play">
+      <svg viewBox="0 0 64 64" class="icon-base icon-play" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="32" cy="32" r="20" class="icon-stroke" />
+        <path d="M28 24l14 8-14 8V24z" class="icon-stroke" fill="currentColor" />
+      </svg>
+    </template>
+    <template id="icon-info">
+      <svg viewBox="0 0 32 32" class="icon-base icon-info" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="16" cy="16" r="12" class="icon-stroke"></circle>
+        <circle cx="16" cy="11" r="1.5" fill="currentColor"></circle>
+        <path d="M16 15v6" class="icon-stroke"></path>
+      </svg>
+    </template>
+  </div>
+
+  <script src="./cum-functioneaza.js" defer></script>
+</body>
+</html>
