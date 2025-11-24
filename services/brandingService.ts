@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { BrandDetails, BrandOverview, BrandAsset } from "../types";
+import { getUserGeminiKey } from "./userKeyStore";
 
 // --- UTILS (Duplicated to ensure strict module isolation) ---
 
@@ -51,7 +52,9 @@ const resizeImage = (base64Str: string, maxWidth = 800): Promise<string> => {
 // --- API ---
 
 export const generateBrandOverview = async (details: BrandDetails): Promise<BrandOverview> => {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = getUserGeminiKey();
+    if (!apiKey) throw new Error("No Gemini API Key configured. Please add your key in the API Key settings.");
+    const ai = new GoogleGenAI({ apiKey });
     
     const prompt = `
     ROLE: Senior Brand Strategist.
@@ -98,11 +101,13 @@ export const generateBrandOverview = async (details: BrandDetails): Promise<Bran
 };
 
 export const generateBrandAsset = async (
-    assetType: BrandAsset['type'], 
-    details: BrandDetails, 
+    assetType: BrandAsset['type'],
+    details: BrandDetails,
     overview: BrandOverview
 ): Promise<string> => {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = getUserGeminiKey();
+    if (!apiKey) throw new Error("No Gemini API Key configured. Please add your key in the API Key settings.");
+    const ai = new GoogleGenAI({ apiKey });
 
     let systemPrompt = "";
     const parts: any[] = [];

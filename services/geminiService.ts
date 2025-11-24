@@ -12,23 +12,12 @@ interface AIStudioWindow {
 
 export const checkApiKey = async (): Promise<boolean> => {
   const storedKey = getUserGeminiKey();
-  if (storedKey) return true;
-
-  const win = window as unknown as AIStudioWindow;
-  if (win.aistudio && win.aistudio.hasSelectedApiKey) {
-    const hasKey = await win.aistudio.hasSelectedApiKey();
-    if (hasKey) return true;
-  }
-  return !!process.env.API_KEY;
+  return !!storedKey;
 };
 
+// Deprecated: This function is no longer used. API keys are now managed through the ApiKeyModal component.
 export const promptForKeySelection = async (): Promise<void> => {
-  const win = window as unknown as AIStudioWindow;
-  if (win.aistudio && win.aistudio.openSelectKey) {
-    await win.aistudio.openSelectKey();
-  } else {
-    console.warn("AI Studio Key Selection not available in this environment.");
-  }
+  console.warn("promptForKeySelection is deprecated. Please use the ApiKeyModal component instead.");
 };
 
 // Helper to strip base64 header
@@ -102,19 +91,9 @@ const resizeImage = (base64Str: string, maxWidth = 800): Promise<string> => {
   });
 };
 
-// Resolve API key priority: user local > AI Studio selection > env
+// Resolve API key from localStorage only
 const getActiveApiKey = async (): Promise<string | undefined> => {
-  const stored = getUserGeminiKey();
-  if (stored) return stored;
-
-  const win = window as unknown as AIStudioWindow;
-  if (win.aistudio && win.aistudio.hasSelectedApiKey) {
-    const hasKey = await win.aistudio.hasSelectedApiKey();
-    if (hasKey && process.env.API_KEY) return process.env.API_KEY; // AI Studio manages its own key selection
-  }
-
-  if (process.env.API_KEY) return process.env.API_KEY;
-  return undefined;
+  return getUserGeminiKey() || undefined;
 };
 
 /**
@@ -126,7 +105,7 @@ const getActiveApiKey = async (): Promise<string | undefined> => {
 export const generateCharacterSheet = async (baseImage: string, style: string, refinement?: string, mode: 'character' | 'brand' = 'character'): Promise<string> => {
   // Always initialize client just before use to capture latest env/key state
   const apiKey = await getActiveApiKey();
-  if (!apiKey) throw new Error("Nu există cheie Gemini setată. Adaugă cheia ta în Project Hub > Gemini API.");
+  if (!apiKey) throw new Error("No Gemini API Key configured. Please click the key icon in the header to configure your API key.");
   const ai = new GoogleGenAI({ apiKey });
 
   // OPTIMIZE INPUT IMAGE TO PREVENT TIMEOUTS (Aggressive 800px limit)
@@ -268,7 +247,7 @@ export const generateCharacterSheet = async (baseImage: string, style: string, r
 export const generateInfographic = async (config: GenerationConfig, referenceImage?: string): Promise<string> => {
   // Always initialize client just before use to capture latest env/key state
   const apiKey = await getActiveApiKey();
-  if (!apiKey) throw new Error("Nu există cheie Gemini setată. Adaugă cheia ta în Project Hub > Gemini API.");
+  if (!apiKey) throw new Error("No Gemini API Key configured. Please click the key icon in the header to configure your API key.");
   const ai = new GoogleGenAI({ apiKey });
 
   const useSearch = config.searchDepth !== SearchDepth.NONE;

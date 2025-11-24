@@ -1,6 +1,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 import { EditRequest } from "./types";
+import { getUserGeminiKey } from "../../services/userKeyStore";
 
 // Helper to strip base64 header
 const getBase64Data = (base64String: string) => {
@@ -11,7 +12,9 @@ const getBase64Data = (base64String: string) => {
 };
 
 export const generateEditedImage = async (request: EditRequest): Promise<string> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = getUserGeminiKey();
+  if (!apiKey) throw new Error("No Gemini API Key configured. Please add your key in the API Key settings.");
+  const ai = new GoogleGenAI({ apiKey });
   
   // Using Nano Banana Pro (Gemini 3 Pro) for multimodal editing capability
   const model = 'gemini-3-pro-image-preview';

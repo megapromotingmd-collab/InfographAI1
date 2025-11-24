@@ -5,6 +5,7 @@ import { Select } from './components/Select';
 import { Card } from './components/Card';
 import { TextArea } from './components/Input';
 import { HelpModal } from './components/HelpModal';
+import { ApiKeyModal } from './components/ApiKeyModal';
 import { SetSettingsModal } from './components/SetSettingsModal';
 import { CompletedSetsGallery } from './components/CompletedSetsGallery';
 import { Sidebar } from './components/Sidebar';
@@ -87,6 +88,7 @@ const App: React.FC = () => {
 
   // Modals
   const [showHelp, setShowHelp] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
   const [showBookWizard, setShowBookWizard] = useState(false);
   const [showPitchWizard, setShowPitchWizard] = useState(false);
   const [showBrandWizard, setShowBrandWizard] = useState(false);
@@ -324,16 +326,14 @@ const App: React.FC = () => {
     }
   };
 
-  const handleResetKey = async () => {
-    if (window.confirm("Change or select a new API Key?")) {
-        try {
-            await promptForKeySelection();
-            setHasKey(true);
-            addLog("API Key reset requested", 'info');
-        } catch (e) {
-            console.error("Key selection failed", e);
-        }
-    }
+  const handleResetKey = () => {
+    setShowApiKey(true);
+  };
+
+  const handleApiKeySaved = async () => {
+    const valid = await checkApiKey();
+    setHasKey(valid);
+    addLog("API Key saved successfully", 'success');
   };
 
   const handleStartBatch = async () => {
@@ -364,8 +364,9 @@ const App: React.FC = () => {
 
   const executeBatch = async (newQueue: QueueItem[]) => {
     if (!hasKey) {
-        try { await promptForKeySelection(); setHasKey(true); } 
-        catch (e) { alert("API Key selection failed."); return; }
+        setShowApiKey(true);
+        alert("Please configure your Gemini API Key first.");
+        return;
     }
 
     // Append to existing queue logic
@@ -915,6 +916,7 @@ const App: React.FC = () => {
         <div className="flex-1 flex flex-col h-full overflow-y-auto relative">
             <Layout onOpenHelp={() => setShowHelp(true)} onResetKey={handleResetKey}>
                 <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
+                <ApiKeyModal isOpen={showApiKey} onClose={() => setShowApiKey(false)} onKeySaved={handleApiKeySaved} />
                 <ChildrenBookWizard isOpen={showBookWizard} onClose={() => setShowBookWizard(false)} onSubmit={handleCreateBook} />
                 <PitchDeckWizard isOpen={showPitchWizard} onClose={() => setShowPitchWizard(false)} onSubmit={handleCreatePitch} />
                 <BrandingWizard isOpen={showBrandWizard} onClose={() => setShowBrandWizard(false)} onSubmit={handleCreateBrand} />
